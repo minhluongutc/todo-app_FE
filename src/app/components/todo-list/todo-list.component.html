@@ -1,0 +1,25 @@
+<section class="list">
+  <div class="filters">
+    <mat-chip-listbox aria-label="Filter">
+      <mat-chip-option [selected]="filter==='all'" (click)="setFilter('all')">Tất cả</mat-chip-option>
+      <mat-chip-option [selected]="filter==='active'" (click)="setFilter('active')">Đang làm</mat-chip-option>
+      <mat-chip-option [selected]="filter==='completed'" (click)="setFilter('completed')">Hoàn thành
+      </mat-chip-option>
+    </mat-chip-listbox>
+    <button mat-stroked-button color="warn" (click)="clearCompleted.emit()">Xóa việc đã hoàn thành</button>
+  </div>
+
+  <div class="items" *ngIf="todos.length; else emptyTpl">
+    <app-todo-item
+      *ngFor="let t of todos; index as i"
+      [todo]="t"
+      (toggle)="toggle.emit($event)"
+      (rename)="rename.emit({ id: t.id, title: $event })"
+      (remove)="remove.emit($event)"
+    />
+  </div>
+
+  <ng-template #emptyTpl>
+    <div class="empty">✨ Không có việc nào. Nghỉ ngơi thôi!</div>
+  </ng-template>
+</section>

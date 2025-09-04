@@ -1,0 +1,30 @@
+<div class="item" [class.done]="todo?.status === 'completed'">
+  <mat-checkbox
+    [checked]="todo?.status === 'completed'"
+    (change)="toggle.emit(todo!.id)"
+  ></mat-checkbox>
+
+  <input
+    class="title"
+    [readonly]="!editing()"
+    [value]="todo?.title"
+    (change)="onRename($event)"
+  />
+
+  <div class="spacer"></div>
+  <button
+    mat-icon-button
+    (click)="editing.set(!editing())"
+    [matTooltip]="editing() ? 'Lưu' : 'Sửa'"
+  >
+    <mat-icon>{{ editing() ? 'check' : 'edit' }}</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    color="warn"
+    (click)="remove.emit(todo!.id)"
+    matTooltip="Xóa"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
